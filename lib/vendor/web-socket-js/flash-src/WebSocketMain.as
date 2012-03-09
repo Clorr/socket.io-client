@@ -24,6 +24,7 @@ public class WebSocketMain extends Sprite implements IWebSocketLogger{
   private var eventQueue:Array = [];
   
   public function WebSocketMain() {
+  	ExternalInterface.marshallExceptions = true;
     ExternalInterface.addCallback("setCallerUrl", setCallerUrl);
     ExternalInterface.addCallback("setDebug", setDebug);
     ExternalInterface.addCallback("create", create);
@@ -56,12 +57,12 @@ public class WebSocketMain extends Sprite implements IWebSocketLogger{
   
   public function log(message:String):void {
     if (debug) {
-      ExternalInterface.call("WebSocket.__log", encodeURIComponent("[WebSocket] " + message));
+      ExternalInterface.call("customLogger", encodeURIComponent("[WebSocket log] " + message));
     }
   }
   
   public function error(message:String):void {
-    ExternalInterface.call("WebSocket.__error", encodeURIComponent("[WebSocket] " + message));
+    ExternalInterface.call("customLogger", encodeURIComponent("[WebSocket err] " + message));
   }
   
   private function parseEvent(event:WebSocketEvent):Object {

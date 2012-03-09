@@ -10,8 +10,14 @@ import flash.system.*;
 public class WebSocketMainInsecure extends WebSocketMain {
 
   public function WebSocketMainInsecure() {
-    Security.allowDomain("*");
-    super();
+  	try{
+	    Security.allowDomain("*");
+	    Security.allowInsecureDomain("*");
+	    super();
+  	}catch(e:Error){
+		log("[WebSocket] exception levee");
+		log("[WebSocket] "+e);
+  	}
   }
   
 }
